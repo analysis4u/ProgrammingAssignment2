@@ -23,18 +23,18 @@ makeCacheMatrix <- function(m = matrix()) {
        getOrg = getOrg,getInv = getInv)
 }
 
-## Returns a matrix that is an inverse of m
+## Returns a matrix that is an inverse of a matrix stored in m_list
 ## from the cache, if exists and the cached matrix has not been changed
 ## using solve function, if it is not cached
-cacheSolve <- function(m) {
-  mOrg <- m$getOrg()
-  mInv <- m$getInv()
-  mdata <- m$get()
+cacheSolve <- function(m_list) {
+  mOrg <- m_list$getOrg()
+  mInv <- m_list$getInv()
+  mdata <- m_list$get()
   if(!is.null(mInv) && identical(mdata, mOrg)) {
     message("getting cached data")
     return(mInv)
   }
   mInv <- solve(mdata)
-  m$setBoth(mdata, mInv)
+  m_list$setBoth(mdata, mInv)
   mInv
 }
